@@ -1,0 +1,16 @@
+<templateSet group="Swift">
+  <template name="clean" value="protocol $NAME$View: class {&#10;}&#10;&#10;protocol $NAME$Routable {&#10;}&#10;&#10;class $NAME$Presenter {&#10;&#10;    weak var view: $NAME$View?&#10;    &#10;    private let router: $NAME$Routable&#10;    &#10;    init(router: $NAME$Routable) {&#10;        self.router = router&#10;    }&#10;    $END$&#10;}&#10;&#10;class $NAME$ViewController: ViewController, $NAME$View {&#10;    &#10;    private let presenter: $NAME$Presenter&#10;&#10;    init(presenter: $NAME$Presenter) {&#10;        self.presenter = presenter&#10;        super.init(nibName: nil, bundle: nil)&#10;    }&#10;    &#10;    required init?(coder aDecoder: NSCoder) {&#10;        fatalError(&quot;init coder not implemented&quot;)&#10;    }&#10;}&#10;&#10;class $NAME$Connector: $NAME$Routable {&#10;    func assembleView() -&gt; UIViewController {&#10;        let presenter = $NAME$Presenter(router: self)&#10;        let viewController = $NAME$ViewController(presenter: presenter)&#10;        presenter.view = viewController&#10;        return viewController&#10;    }&#10;}" description="Creates clean module" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="swift.lang.context" value="true" />
+    </context>
+  </template>
+  <template name="test" value="import Foundation&#10;import Quick&#10;import Nimble&#10;@testable import $PROJECT_NAME$&#10;&#10;class $NAME$Tests: QuickSpec {&#10;&#10;    override func spec() {&#10;&#10;        var $VAR_NAME$: $NAME$!&#10;&#10;        describe(&quot;$NAME$&quot;) {&#10;            beforeEach {&#10;                $VAR_NAME$ = $NAME$()&#10;                $END$&#10;            }&#10;&#10;            context(&quot;when &quot;) {&#10;            &#10;                it(&quot;&quot;) {&#10;                }&#10;            }    &#10;        }&#10;    }&#10;}" description="Creates test class" toReformat="false" toShortenFQNames="true">
+    <variable name="PROJECT_NAME" expression="" defaultValue="PROJECT_NAME" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <variable name="VAR_NAME" expression="decapitalize(NAME)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="swift.lang.context" value="true" />
+    </context>
+  </template>
+</templateSet>
